@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: namespaces-common
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/MV0id/Argo.git
+        revision: main
+        files:
+          - path: helm-charts/helm-namespaces/namespaces/**/targets.yaml
+  template:
+    metadata:
+      name: 'NS-{{ namespace }}-{{ cluster }}'
+    spec:
+      destination:
+        namespace: '{{ namespace }}'
+        server: '{{ url }}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
+        syncOptions:
+        - CreateNamespace=false
+        - ApplyOutOfSyncOnly=false
+        - Delete=false
+      project: services
+      source:
+        directory:
+          recurse: true
+        path: 'helm-charts/helm-namespaces/namespaces/{{ namespace }}/namespace.yaml'
+        repoURL: https://github.com/MV0id/Argo.git
+        targetRevision: main

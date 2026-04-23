@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-search
+  namespace: testns
+---
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: vault-backend
+  namespace: testns
+spec:
+  provider:
+    vault:
+      server: "https://vault-catalog-wbx.wb.ru/"
+      path: "stage"
+      version: "v2"
+      auth:
+        jwt:
+          path: "k8s.nbstage.jwt"
+          role: "k8s-nbstage-jwt-testns"
+          kubernetesServiceAccountToken:
+            serviceAccountRef:
+              name: "vault-search"
+            audiences:
+              - vault
+            expirationSeconds: 600

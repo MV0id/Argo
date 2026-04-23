@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: quotas-common
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/MV0id/Argo.git
+        revision: main
+        files:
+          - path: helm-charts/helm-namespaces/namespaces/**/targets.yaml
+  template:
+    metadata:
+      name: 'quotas-{{ namespace }}-{{ cluster }}'
+      labels:
+        name: quotas
+        cluster: '{{ cluster }}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/MV0id/Argo.git'
+        path: 'common/{{ namespace }}'
+        targetRevision: main
+      destination:
+        server: '{{ url }}'
+        namespace: '{{ namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=false
+        - ApplyOutOfSyncOnly=false
+        - ServerSideApply=false

@@ -1,0 +1,9 @@
+- namespace: prod-search-testns-reg
+  cluster: kind-dmkind
+  url: https://127.0.0.1:51484
+  path: new_structure_secrets/prod/reg/prod-testns-reg
+
+- namespace: prod-search-testns-two-reg
+  cluster: kind-dlkind
+  url: https://127.0.0.1:64454
+  path: new_structure_secrets/prod/reg/prod-search-testns-two-reg
