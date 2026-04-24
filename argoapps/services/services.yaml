@@ -1,0 +1,15 @@
+project: services
+source:
+  repoURL: https://wbxgitlab.wb.ru/devops/argocd-catalog.git
+  path: argoapps/services
+  targetRevision: HEAD
+  directory:
+    recurse: true
+    jsonnet: {}
+destination:
+  server: https://kubernetes.default.svc
+  namespace: argocd
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
