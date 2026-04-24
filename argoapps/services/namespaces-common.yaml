@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/MV0id/Argo.git
         targetRevision: main
-        path: 'helm-charts/helm-namespaces/namespaces/{{ namespace }}/namespace.yaml'
+        path: 'helm-charts/helm-namespaces/namespaces/{{ namespace }}'
       destination:
         namespace: '{{ namespace }}'
         server: '{{ url }}'
