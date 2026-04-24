@@ -1,0 +1,4 @@
+- namespace: prod-search-testns-unreg
+  cluster: kind-cl-first
+  url: https://kubernetes.default.svc
+  path: new_structure_secrets/prod/reg/prod-testns-unreg
