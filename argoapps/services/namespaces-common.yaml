@@ -30,3 +30,4 @@ spec:
       syncOptions:
       - CreateNamespace=false
       - ApplyOutOfSyncOnly=false
+
