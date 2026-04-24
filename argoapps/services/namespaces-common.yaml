@@ -13,7 +13,7 @@ spec:
       - path: helm-charts/helm-namespaces/namespaces/**/targets.yaml
   template:
     metadata:
-      name: 'NS-{{ namespace }}-{{ cluster }}'
+      name: 'ns-{{ namespace }}-{{ cluster }}'
     spec:
       project: services
       source:
@@ -30,4 +30,3 @@ spec:
       syncOptions:
       - CreateNamespace=false
       - ApplyOutOfSyncOnly=false
-
