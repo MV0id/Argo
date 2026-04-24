@@ -1,6 +1,6 @@
 project: services
 source:
-  repoURL: https://wbxgitlab.wb.ru/devops/argocd-catalog.git
+  repoURL: https://github.com/MV0id/Argo.git
   path: argoapps/services
   targetRevision: HEAD
   directory:
