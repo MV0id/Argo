@@ -6,15 +6,20 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/MV0id/Argo.git
-        revision: main
-        files:
-          - path: helm-charts/helm-namespaces/namespaces/**/targets.yaml
+  - git:
+      repoURL: https://github.com/MV0id/Argo.git
+      revision: main
+      files:
+      - path: helm-charts/helm-namespaces/namespaces/**/targets.yaml
   template:
     metadata:
       name: 'NS-{{ namespace }}-{{ cluster }}'
     spec:
+      project: services
+      source:
+        repoURL: https://github.com/MV0id/Argo.git
+        targetRevision: main
+        path: 'helm-charts/helm-namespaces/namespaces/{{ namespace }}'
       destination:
         namespace: '{{ namespace }}'
         server: '{{ url }}'
@@ -22,14 +27,6 @@ spec:
         automated:
           prune: false
           selfHeal: false
-        syncOptions:
-        - CreateNamespace=false
-        - ApplyOutOfSyncOnly=false
-        - Delete=false
-      project: services
-      source:
-        directory:
-          recurse: true
-        path: 'helm-charts/helm-namespaces/namespaces/{{ namespace }}/namespace.yaml'
-        repoURL: https://github.com/MV0id/Argo.git
-        targetRevision: main
+      syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=false
